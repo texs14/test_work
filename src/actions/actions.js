@@ -46,11 +46,22 @@ const saveEdit = (editRow) => {
     }
 }
 
+const drop = (newColumn) => {
+
+    
+
+    return {
+        type: 'DROP',
+        payload: newColumn
+    }
+}
+
 export {
     deleteRow,
     addColor,
     hiddenPopup,
     showPopup,
     editToggle,
-    saveEdit
+    saveEdit,
+    drop
 }

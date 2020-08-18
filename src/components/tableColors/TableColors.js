@@ -9,22 +9,65 @@ import {
 
 import Row from '../row/Row';
 import RowEdit from '../row/RowEdit';
-import { showPopup } from '../../actions/actions';
+import { showPopup, drop } from '../../actions/actions';
 
 
-const TableColors = ({ rows, showPopup }) => {
+const TableColors = ({ rows, column, showPopup, drop }) => {
+    
+    
+    let rowsArr = [];
+    let rowsAr = Object.values(rows);
+    
+
+    // console.log(column.rowsIds);
+
+    console.log(rowsAr)
+
+    for (let key of column.rowsIds) {
+        rowsArr.push(rows[key]);
+
+        console.log(key)
+    }
+
+    // rows.filter(i => console.log(i))
+    console.log(rowsArr)
 
     const onDragEnd = (result) => {
         const { destination, source, draggableId } = result;
 
-        console.log(draggableId);
+        if(!destination) {
+            return;
+        }
+
+        if(
+            destination.draggableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
+
+
+        const newRowsIds = rowsArr.map(row => row.id);
+
+        newRowsIds.splice(source.index, 1);
+        newRowsIds.splice(destination.index, 0, draggableId);
+
+        const newColumn = {
+            ...column,
+            rowsIds: newRowsIds
+        }
+
+        drop(newColumn);
+
+        console.log(newRowsIds);
+
+        // console.log(source);
+        // console.log(column.rowsIds);
     }
-
-
 
     return(
         <Table striped bordered hover>
-        
+
             <thead>
                 <tr>
                     <th>#</th>
@@ -32,7 +75,7 @@ const TableColors = ({ rows, showPopup }) => {
                     <th>Type</th>
                     <th>Color</th>
                     <th>
-                        
+
             
                         <Button variant="success" 
                             onClick={ () => showPopup() }> Add </Button>
@@ -46,9 +89,9 @@ const TableColors = ({ rows, showPopup }) => {
                             ref={provided.innerRef}
                             {...provided.droppableProps}>
                                 {
-                                   (rows.length !== 0) ? rows.map((row, i) => {
-                                        if(!row.edit) return <Row row={ row } index={i + 1} key={ row.id }/> 
-                                        else return <RowEdit row={row} index={i + 1} key={ row.id }/>
+                                   (rowsAr.length !== 0) ? rowsAr.map((row, i) => {
+                                        if(!row.edit) return <Row row={ row } index={i} key={ row.id }/> 
+                                        else return <RowEdit row={row} index={i} key={ row.id }/>
                                     }) :
                                     <tr>
                                         <th></th>
@@ -68,13 +111,14 @@ const TableColors = ({ rows, showPopup }) => {
     )
 }
 
-const mapStateToProps = ({ rows }) => {
-    return { rows }
+const mapStateToProps = ({ column, rows }) => {
+    return { column, rows }
 }
 
 
 const mapDispathToProps = {
-    showPopup
+    showPopup,
+    drop
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(TableColors);

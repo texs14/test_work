@@ -1,60 +1,51 @@
-import { v4 } from 'uuid';
+import initialState from './initialState';
 
-const initialState = {
-    column: {
-        id: 'column-1',
-        
-    },
-    showAddPopup: false,
-    rows:[
-        {
-            name: 'name1',
-            type: 'main',
-            color: '#000000',
-            id: v4(),
-            edit: false,
-        },
-        {
-            name: 'name2',
-            type: 'backgrond',
-            color: '#000000',
-            id: v4(),
-            edit: false,
-        },
-        {
-            name: 'name3',
-            type: 'title',
-            color: '#000000',
-            id: v4(),
-            edit: false,
-        },
-    ]
-};
+let newRows
 
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
         case 'DEL':
+            newRows = {};
+
+            for (let key in state.rows) {
+                if(key !== action.payload) {
+                    newRows[key] = Object.assign(state.rows[key])
+                    // console.log(newRows);
+                }
+            }
+
             return {
                 ...state,
-                rows: state.rows.filter(row => row.id !== action.payload)
+                column: {
+                    ...state.column,
+                    rowsIds: state.column.rowsIds.filter( rowId => rowId !== action.payload)
+                },
+                rows: newRows
             }
         
         case 'ADD':
             return {
                 ...state,
-                rows: [
-                    ...state.rows,
-                    action.payload,
-                ]
+                column: {
+                    ...state.column,
+                    rows: [
+                        ...state.column.rows,
+                        action.payload,
+                    ]
+                }
+                
             }
 
         case 'SAVE':
             return {
                 ...state,
-                rows: [
-                    action.payload,
-                    ...state.rows
-                ]
+                column: {
+                    ...state.column,
+                    rows: [
+                        action.payload,
+                        ...state.column.rows
+                    ]
+                }
             }
 
         case 'SHOW_POPUP':
@@ -70,27 +61,49 @@ const reducer = ( state = initialState, action ) => {
             }
 
         case 'EDIT_TOGGLE':
+
+            let newRowsEdit = {};
+
+            for (let key in state.rows) {
+
+                if( key === action.payload) {
+                    newRowsEdit[key] = {
+                        ...state.rows[key],
+                        edit: !state.rows[key].edit
+                    };
+                    console.log(key);
+                    break;
+                }
+
+                newRowsEdit[key] = {
+                    ...state.rows[key]
+                };
+            }
+
+            console.log(newRowsEdit);
+
             return {
                 ...state,
-                rows: state.rows.map( row => (row.id === action.payload) ? 
-                        {
-                            ...row,
-                            edit: !row.edit 
-                        } :
-                        row
-                    )
-                
+                rows: newRowsEdit
             }
 
         case 'SAVE_EDIT':
             return {
                 ...state,
-                rows: state.rows.map( row => (row.id === action.payload.id) ?
-                    action.payload :
-                    row
-                )
+                column: {
+                    ...state.column,
+                    rows: state.column.rows.map( row => (row.id === action.payload.id) ?
+                        action.payload :
+                        row
+                    )
+                }
             }
-
+                
+        case 'DROP':
+            return {
+                ...state,
+                column: action.payload,
+            }
 
         default:
             return state;
