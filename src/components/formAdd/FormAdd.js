@@ -8,7 +8,9 @@ import { v4 } from 'uuid';
 const FormAdd = ({ addColor, hiddenPopup }) => {
 
 
-    let _name, _type, _color;
+    let _name, _type, _color, _id;
+
+    _id = v4();
 
     return(
         <Form.Group>
@@ -41,13 +43,14 @@ const FormAdd = ({ addColor, hiddenPopup }) => {
             <Form.Row>
                 <Button variant="primary" onClick={ () => {
                     hiddenPopup();
-                    addColor({
+                    addColor(
+                    {
                         name: _name.value,
                         color: _color.value,
                         type: _type.value,
-                        id: v4(),
+                        id: _id,
                         edit: false
-                    });
+                    }, _id);
                 }} >Save</Button>
                 <Button variant="danger" onClick={ () => hiddenPopup() }>Close</Button>
             </Form.Row>

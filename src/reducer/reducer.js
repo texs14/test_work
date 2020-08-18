@@ -10,7 +10,6 @@ const reducer = ( state = initialState, action ) => {
             for (let key in state.rows) {
                 if(key !== action.payload) {
                     newRows[key] = Object.assign(state.rows[key])
-                    // console.log(newRows);
                 }
             }
 
@@ -24,29 +23,26 @@ const reducer = ( state = initialState, action ) => {
             }
         
         case 'ADD':
-            return {
-                ...state,
-                column: {
-                    ...state.column,
-                    rows: [
-                        ...state.column.rows,
-                        action.payload,
-                    ]
-                }
-                
-            }
 
-        case 'SAVE':
+            const newRowsAdded = state.rows;
+
+            newRowsAdded[action.payload.id] = action.payload.newColor;
+
+            const newRowsIdsAdd = [...state.column.rowsIds];
+            newRowsIdsAdd.push(action.payload.id)
+
+            console.log(newRowsIdsAdd)
+
             return {
                 ...state,
                 column: {
                     ...state.column,
-                    rows: [
-                        action.payload,
-                        ...state.column.rows
-                    ]
-                }
+                    rowsIds: newRowsIdsAdd
+                },
+                rows: newRowsAdded
             }
+                
+            
 
         case 'SHOW_POPUP':
             return {
@@ -71,8 +67,7 @@ const reducer = ( state = initialState, action ) => {
                         ...state.rows[key],
                         edit: !state.rows[key].edit
                     };
-                    console.log(key);
-                    break;
+                    continue;
                 }
 
                 newRowsEdit[key] = {
@@ -80,23 +75,30 @@ const reducer = ( state = initialState, action ) => {
                 };
             }
 
-            console.log(newRowsEdit);
-
             return {
                 ...state,
                 rows: newRowsEdit
             }
 
         case 'SAVE_EDIT':
+            let newRowSave = {};
+
+            for (let key in state.rows) {
+
+                if( key === action.payload.id) {
+                    newRowSave[key] = action.payload.editRow;
+                    continue;
+                }
+
+                newRowSave[key] = {
+                    ...state.rows[key]
+                };
+            }
+
             return {
                 ...state,
-                column: {
-                    ...state.column,
-                    rows: state.column.rows.map( row => (row.id === action.payload.id) ?
-                        action.payload :
-                        row
-                    )
-                }
+                rows: newRowSave
+                
             }
                 
         case 'DROP':

@@ -30,12 +30,14 @@ const RowEdit = ( {row, editToggle, saveEdit, index} ) => {
                         </th>
                         <th>
                             <Button variant="info" 
-                                onClick={ () => saveEdit({
+                                onClick={ () => saveEdit(
+                                {
                                     name: _name.value,
                                     type: _type.value,
                                     color: _color.value,
                                     id
-                                })}> Save </Button>
+                                }, id
+                                )}> Save </Button>
                             <Button variant="warning" onClick={() => editToggle(id)}> Close </Button>
                         </th> 
                     </tr>

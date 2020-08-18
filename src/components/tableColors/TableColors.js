@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { 
     Button,
-    Table,
-    Modal
+    Table
 } from 'react-bootstrap';
 
 import Row from '../row/Row';
@@ -21,11 +20,13 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
 
     // console.log(column.rowsIds);
 
-    // console.log(rowsAr)
+    // console.log(rowsAr)https://github.com/texs14/test_work.git
 
     for (let key of column.rowsIds) {
         rowsArr.push(rows[key]);
     }
+
+    console.log(rowsArr);
 
 
     const onDragEnd = (result) => {
@@ -60,13 +61,11 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
 
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Color</th>
-                    <th>
-
-            
+                    <th className="">#</th>
+                    <th className="">Name</th>
+                    <th className="">Type</th>
+                    <th className="">Color</th>
+                    <th className="">
                         <Button variant="success" 
                             onClick={ () => showPopup() }> Add </Button>
                     </th>

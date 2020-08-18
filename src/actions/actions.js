@@ -13,10 +13,13 @@ const deleteRow = (id) => {
     }
 }
 
-const addColor = (newColor) => {
+const addColor = (newColor, id) => {
     return {
         type: 'ADD',
-        payload: newColor
+        payload: {
+            newColor,
+            id
+        }
     }
 }
 
@@ -39,10 +42,13 @@ const editToggle = (id) => {
     }
 }
 
-const saveEdit = (editRow) => {
+const saveEdit = (editRow, id) => {
     return {
         type: 'SAVE_EDIT',
-        payload: editRow
+        payload: {
+            editRow,
+            id
+        }
     }
 }
 

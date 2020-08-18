@@ -44,6 +44,4 @@ initialState.rows[id1] = row1;
 initialState.rows[id2] = row2;
 initialState.rows[id3] = row3;
 
-console.log(initialState);
-
 export default initialState;
