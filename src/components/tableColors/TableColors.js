@@ -16,21 +16,17 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
     
     
     let rowsArr = [];
-    let rowsAr = Object.values(rows);
+    // let rowsArr = Object.values(rows);
     
 
     // console.log(column.rowsIds);
 
-    console.log(rowsAr)
+    // console.log(rowsAr)
 
     for (let key of column.rowsIds) {
         rowsArr.push(rows[key]);
-
-        console.log(key)
     }
 
-    // rows.filter(i => console.log(i))
-    console.log(rowsArr)
 
     const onDragEnd = (result) => {
         const { destination, source, draggableId } = result;
@@ -56,13 +52,7 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
             ...column,
             rowsIds: newRowsIds
         }
-
         drop(newColumn);
-
-        console.log(newRowsIds);
-
-        // console.log(source);
-        // console.log(column.rowsIds);
     }
 
     return(
@@ -89,7 +79,7 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
                             ref={provided.innerRef}
                             {...provided.droppableProps}>
                                 {
-                                   (rowsAr.length !== 0) ? rowsAr.map((row, i) => {
+                                   (rowsArr.length !== 0) ? rowsArr.map((row, i) => {
                                         if(!row.edit) return <Row row={ row } index={i} key={ row.id }/> 
                                         else return <RowEdit row={row} index={i} key={ row.id }/>
                                     }) :
