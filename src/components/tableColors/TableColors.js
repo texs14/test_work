@@ -15,18 +15,10 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
     
     
     let rowsArr = [];
-    // let rowsArr = Object.values(rows);
-    
-
-    // console.log(column.rowsIds);
-
-    // console.log(rowsAr)https://github.com/texs14/test_work.git
 
     for (let key of column.rowsIds) {
         rowsArr.push(rows[key]);
     }
-
-    console.log(rowsArr);
 
 
     const onDragEnd = (result) => {
@@ -57,15 +49,15 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
     }
 
     return(
-        <Table striped bordered hover>
+        <Table striped bordered hover className="table">
 
             <thead>
                 <tr>
-                    <th className="">#</th>
-                    <th className="">Name</th>
-                    <th className="">Type</th>
-                    <th className="">Color</th>
-                    <th className="">
+                    <th className="table__cell table__cell_index">#</th>
+                    <th className="table__cell table__cell_name">Name</th>
+                    <th className="table__cell table__cell_type">Type</th>
+                    <th className="table__cell table__cell_color">Color</th>
+                    <th className="table__cell table__cell_button">
                         <Button variant="success" 
                             onClick={ () => showPopup() }> Add </Button>
                     </th>
@@ -111,16 +103,3 @@ const mapDispathToProps = {
 }
 
 export default connect(mapStateToProps, mapDispathToProps)(TableColors);
-
-
-// (rows.length !== 0) ? rows.map((row, i) => {
-//     if(!row.edit) return <Row row={ row } index={i + 1} key={ row.id }/> 
-//     else return <RowEdit row={row} index={i + 1} key={ row.id }/>
-// }) :
-// <tr>
-//     <th></th>
-//     <th> The list is empty </th>
-//     <th></th>
-//     <th></th>
-//     <th></th>
-// </tr>

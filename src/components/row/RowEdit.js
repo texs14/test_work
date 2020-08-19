@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 import { editToggle, saveEdit } from '../../actions/actions';
+import hexToRgb from '../../functions/hexToRgb';
 
 
 const RowEdit = ( {row, editToggle, saveEdit, index} ) => {
@@ -20,13 +21,13 @@ const RowEdit = ( {row, editToggle, saveEdit, index} ) => {
                         {...provided.dragHandleProps}>
                         <th>{ index }</th>
                         <th>
-                            <input type="text" defaultValue={name} ref={ input => _name = input}/>
+                            <input className="row-input" type="text" defaultValue={name} ref={ input => _name = input}/>
                         </th>
                         <th>
-                            <input type="text" defaultValue={type} ref={ input => _type = input}/>
+                            <input className="row-input" type="text" defaultValue={type} ref={ input => _type = input}/>
                         </th>
-                        <th>
-                            <input type="color" defaultValue={color} ref={ input => _color = input}/>
+                        <th className="input-color-cell">
+                            <input className="row-input-color" type="color" defaultValue={color} ref={ input => _color = input}/>
                         </th>
                         <th>
                             <Button variant="info" 
@@ -34,7 +35,10 @@ const RowEdit = ( {row, editToggle, saveEdit, index} ) => {
                                 {
                                     name: _name.value,
                                     type: _type.value,
-                                    color: _color.value,
+                                    color: {
+                                        hex: _color.value,
+                                        rgb: hexToRgb(_color.value)
+                                    },
                                     id
                                 }, id
                                 )}> Save </Button>

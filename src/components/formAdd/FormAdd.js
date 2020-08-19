@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { hiddenPopup, addColor } from '../../actions/actions';
 import { Form, Col, Button } from 'react-bootstrap';
 import { v4 } from 'uuid';
+import hexToRgb from '../../functions/hexToRgb';
 
 
 const FormAdd = ({ addColor, hiddenPopup }) => {
-
-
     let _name, _type, _color, _id;
 
     _id = v4();
@@ -46,7 +45,10 @@ const FormAdd = ({ addColor, hiddenPopup }) => {
                     addColor(
                     {
                         name: _name.value,
-                        color: _color.value,
+                        color: {
+                            hex: _color.value,
+                            rgb: hexToRgb(_color.value)
+                        },
                         type: _type.value,
                         id: _id,
                         edit: false

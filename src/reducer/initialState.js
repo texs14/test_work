@@ -10,7 +10,10 @@ id3 = `${v4()}`;
 row1 = {
     name: 'name1',
     type: 'main',
-    color: '#000000',
+    color: {
+        hex: '#000000',
+        rgb: 'rgb(0, 0, 0)'
+    },
     id: id1,
     edit: false,
 };
@@ -18,7 +21,10 @@ row1 = {
 row2 = {
     name: 'name2',
     type: 'backgrond',
-    color: '#000000',
+    color: {
+        hex: '#000000',
+        rgb: 'rgb(0,0,0)'
+    },
     id: id2,
     edit: false,
 };
@@ -26,7 +32,10 @@ row2 = {
 row3 = {
     name: 'name3',
     type: 'title',
-    color: '#000000',
+    color: {
+        hex: '#000000',
+        rgb: 'rgb(0,0,0)'
+    },
     id: id3,
     edit: false,
 };
