@@ -25,7 +25,7 @@ const Row = ( {row, index, deleteRow, editToggle}  ) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}>
-                        <th className="table__cell table__cell_index">{ index }</th>
+                        <th className="table__cell table__cell_index">{ index + 1}</th>
                         <th className="table__cell table__cell_name">{ name }</th>
                         <th className="table__cell table__cell_type">{ type }</th>
                 <th className="table__cell table__cell_color" style={colorCell}><span>{color.hex}</span></th>

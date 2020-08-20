@@ -1,6 +1,6 @@
 import initialState from './initialState';
 
-let newRows
+let newRows, newState;
 
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
@@ -13,14 +13,18 @@ const reducer = ( state = initialState, action ) => {
                 }
             }
 
-            return {
+            newState = {
                 ...state,
                 column: {
                     ...state.column,
                     rowsIds: state.column.rowsIds.filter( rowId => rowId !== action.payload)
                 },
                 rows: newRows
-            }
+            };
+
+            localStorage.setItem('table', JSON.stringify(newState));
+
+            return newState;
         
         case 'ADD':
 
@@ -31,30 +35,27 @@ const reducer = ( state = initialState, action ) => {
             const newRowsIdsAdd = [...state.column.rowsIds];
             newRowsIdsAdd.push(action.payload.id)
 
-            console.log(newRowsIdsAdd)
-
-            return {
+            newState = {
                 ...state,
                 column: {
                     ...state.column,
                     rowsIds: newRowsIdsAdd
                 },
                 rows: newRowsAdded
-            }
-                
-            
+            };
 
-        case 'SHOW_POPUP':
-            return {
+            localStorage.setItem('table', JSON.stringify(newState));
+
+            return newState;
+                        
+        case 'POPUP_TOGGLE':
+
+            newState = {
                 ...state,
-                showAddPopup: true
-            }
-        
-        case 'HIDDEN_POPUP':
-            return {
-                ...state,
-                showAddPopup: false
-            }
+                showAddPopup: !state.showAddPopup
+            };
+
+            return newState;
 
         case 'EDIT_TOGGLE':
 
@@ -74,6 +75,9 @@ const reducer = ( state = initialState, action ) => {
                     ...state.rows[key]
                 };
             }
+
+
+            localStorage.setItem('table', JSON.stringify(newState));
 
             return {
                 ...state,
@@ -95,17 +99,26 @@ const reducer = ( state = initialState, action ) => {
                 };
             }
 
-            return {
+            newState = {
                 ...state,
                 rows: newRowSave
                 
-            }
+            };
+
+            localStorage.setItem('table', JSON.stringify(newState));
+
+            return newState;
                 
         case 'DROP':
-            return {
+
+            newState = {
                 ...state,
                 column: action.payload,
-            }
+            };
+
+            localStorage.setItem('table', JSON.stringify(newState));
+
+            return newState;
 
         default:
             return state;

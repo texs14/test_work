@@ -8,10 +8,10 @@ import {
 
 import Row from '../row/Row';
 import RowEdit from '../row/RowEdit';
-import { showPopup, drop } from '../../actions/actions';
+import { popupToggle, drop } from '../../actions/actions';
 
 
-const TableColors = ({ rows, column, showPopup, drop }) => {
+const TableColors = ({ rows, column, popupToggle, drop }) => {
     
     
     let rowsArr = [];
@@ -59,7 +59,7 @@ const TableColors = ({ rows, column, showPopup, drop }) => {
                     <th className="table__cell table__cell_color">Color</th>
                     <th className="table__cell table__cell_button">
                         <Button variant="success" 
-                            onClick={ () => showPopup() }> Add </Button>
+                            onClick={ () => popupToggle() }> Add </Button>
                     </th>
                 </tr>
             </thead>
@@ -98,7 +98,7 @@ const mapStateToProps = ({ column, rows }) => {
 
 
 const mapDispathToProps = {
-    showPopup,
+    popupToggle,
     drop
 }
 

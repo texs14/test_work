@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hiddenPopup, addColor } from '../../actions/actions';
+import { popupToggle, addColor } from '../../actions/actions';
 import { Form, Col, Button } from 'react-bootstrap';
 import { v4 } from 'uuid';
 import hexToRgb from '../../functions/hexToRgb';
 
 
-const FormAdd = ({ addColor, hiddenPopup }) => {
+const FormAdd = ({ addColor, popupToggle }) => {
     let _name, _type, _color, _id;
 
     _id = v4();
@@ -41,7 +41,7 @@ const FormAdd = ({ addColor, hiddenPopup }) => {
             </Form.Row>
             <Form.Row>
                 <Button variant="primary" onClick={ () => {
-                    hiddenPopup();
+                    popupToggle();
                     addColor(
                     {
                         name: _name.value,
@@ -54,14 +54,14 @@ const FormAdd = ({ addColor, hiddenPopup }) => {
                         edit: false
                     }, _id);
                 }} >Save</Button>
-                <Button variant="danger" onClick={ () => hiddenPopup() }>Close</Button>
+                <Button variant="danger" onClick={ () => popupToggle() }>Close</Button>
             </Form.Row>
         </Form.Group>
     )
 }
 const mapDispathToProps = {
     addColor,
-    hiddenPopup
+    popupToggle
 }
 
 export default connect(null, mapDispathToProps)(FormAdd);

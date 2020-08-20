@@ -23,15 +23,9 @@ const addColor = (newColor, id) => {
     }
 }
 
-const showPopup = () => {
+const popupToggle = () => {
     return {
-        type: 'SHOW_POPUP'
-    }
-}
-
-const hiddenPopup = () => {
-    return {
-        type: 'HIDDEN_POPUP'
+        type: 'POPUP_TOGGLE'
     }
 }
 
@@ -65,8 +59,7 @@ const drop = (newColumn) => {
 export {
     deleteRow,
     addColor,
-    hiddenPopup,
-    showPopup,
+    popupToggle,
     editToggle,
     saveEdit,
     drop
