@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { popupToggle, addColor } from '../../actions/actions';
 import { Form, Col, Button } from 'react-bootstrap';
+import { XSquare, CheckSquare } from 'react-bootstrap-icons';
 import { v4 } from 'uuid';
 import hexToRgb from '../../functions/hexToRgb';
 
@@ -18,7 +19,7 @@ const FormAdd = ({ addColor, popupToggle }) => {
                     Name
                 </Form.Label>
                 <Col>
-                    <Form.Control ref={ input => _name = input} type="text" placeholder="Normal text" />
+                    <Form.Control ref={ input => _name = input} type="text" placeholder="Normal text"/>
                 </Col>
             </Form.Row>
             <br />
@@ -27,7 +28,7 @@ const FormAdd = ({ addColor, popupToggle }) => {
                     Type
                 </Form.Label>
                 <Col>
-                    <Form.Control ref={ input => _type = input} type="text" placeholder="Normal text" />
+                    <Form.Control ref={ input => _type = input} type="text" placeholder="Normal text"/>
                 </Col>
             </Form.Row>
             <br />
@@ -39,7 +40,7 @@ const FormAdd = ({ addColor, popupToggle }) => {
                     <Form.Control ref={ input => _color = input} type="color" placeholder="Normal text" />
                 </Col>
             </Form.Row>
-            <Form.Row>
+            <Form.Row className="button-form-row">
                 <Button variant="primary" onClick={ () => {
                     popupToggle();
                     addColor(
@@ -53,8 +54,8 @@ const FormAdd = ({ addColor, popupToggle }) => {
                         id: _id,
                         edit: false
                     }, _id);
-                }} >Save</Button>
-                <Button variant="danger" onClick={ () => popupToggle() }>Close</Button>
+                }} > <CheckSquare size={22}/></Button>
+                <Button variant="danger" onClick={ () => popupToggle() }> <XSquare size={22}/></Button>
             </Form.Row>
         </Form.Group>
     )

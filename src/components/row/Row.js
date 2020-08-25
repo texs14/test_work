@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
+import { Trash, Pencil, DoorOpen } from 'react-bootstrap-icons';
 import { deleteRow, editToggle } from '../../actions/actions';
 
 
@@ -31,9 +32,9 @@ const Row = ( {row, index, deleteRow, editToggle}  ) => {
                 <th className="table__cell table__cell_color" style={colorCell}><span>{color.hex}</span></th>
                         <th className="table__cell table__cell_button">
                             <Button variant="primary" onClick={() => history.push({ pathname: `/${id}`})}>
-                                Open </Button>
-                            <Button variant="info" onClick={() => editToggle(id)}> Edit </Button>
-                            <Button variant="danger" onClick={() => deleteRow(id)}> Del </Button>
+                                <DoorOpen size={22}/> </Button>
+                            <Button variant="info" onClick={() => editToggle(id)}> <Pencil size={22}/> </Button>
+                            <Button variant="danger" onClick={() => deleteRow(id)}> <Trash size={22}/> </Button>
                         </th> 
                     </tr>
                 )

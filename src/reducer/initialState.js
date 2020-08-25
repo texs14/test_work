@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-let initialState = {}
+let initialState = {};
 
 if(JSON.parse(localStorage.getItem('table'))) {
     initialState = JSON.parse(localStorage.getItem('table'));

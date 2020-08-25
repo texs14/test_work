@@ -5,6 +5,7 @@ import {
     Button,
     Table
 } from 'react-bootstrap';
+import { PlusSquare } from 'react-bootstrap-icons';
 
 import Row from '../row/Row';
 import RowEdit from '../row/RowEdit';
@@ -49,6 +50,8 @@ const TableColors = ({ rows, column, popupToggle, drop }) => {
     }
 
     return(
+    <>
+        <h1> Color table for test work</h1>
         <Table striped bordered hover className="table">
 
             <thead>
@@ -59,7 +62,7 @@ const TableColors = ({ rows, column, popupToggle, drop }) => {
                     <th className="table__cell table__cell_color">Color</th>
                     <th className="table__cell table__cell_button">
                         <Button variant="success" 
-                            onClick={ () => popupToggle() }> Add </Button>
+                            onClick={ () => popupToggle() }> <PlusSquare size={22}/> </Button>
                     </th>
                 </tr>
             </thead>
@@ -89,6 +92,7 @@ const TableColors = ({ rows, column, popupToggle, drop }) => {
                 </Droppable>
             </DragDropContext>
         </Table>
+    </>
     )
 }
 
